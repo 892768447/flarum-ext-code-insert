@@ -1,0 +1,4 @@
+flarum-ext-code-insert:
+  form:
+    title: Insert Code
+    insert: Insert

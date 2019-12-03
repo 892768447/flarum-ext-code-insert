@@ -1,0 +1,4 @@
+flarum-ext-code-insert:
+  form:
+    title: 插入代码
+    insert: 插入
