@@ -1,5 +1,5 @@
 flarum-ext-code-insert:
-  form:
+  forum:
     title: Insert Code
     insert: Insert
   admin:

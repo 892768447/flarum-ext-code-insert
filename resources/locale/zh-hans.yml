@@ -1,5 +1,5 @@
 flarum-ext-code-insert:
-  form:
+  forum:
     title: 插入代码
     insert: 插入
   admin:

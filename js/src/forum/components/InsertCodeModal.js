@@ -4,11 +4,6 @@ import Button from 'flarum/components/Button';
 
 export default class InsertCodeModal extends Modal {
 
-    init() {
-        super.init();
-        this.currentMode = '';
-    }
-
     className() {
         return 'InsertCodeModal Modal--large';
     }
@@ -20,40 +15,28 @@ export default class InsertCodeModal extends Modal {
     content() {
         return (
             <div className="Modal-body">
-                <div className="Form-group">
-                    <div id="irony-code-editor" className="Form-group" style="min-height: 300px;">
+                <div className="Form Form--centered">
+                    <div className="Form-group">
+                        <textarea id="irony-code-editor" className="FormControl" style="min-height: 300px;"/>
                     </div>
-                </div>
-                <div className="Form-group">
-                    {Select.component({
-                        style: 'unset',
-                        options: this.props.modes,
-                        value: '',
-                        onchange: this.change.bind(this)
-                    })}
-                    {Button.component({
-                        className: 'Button Button--primary',
-                        type: 'button',
-                        children: app.translator.trans('flarum-ext-code-insert.forum.insert'),
-                        onclick: this.click.bind(this)
-                    })}
+                    <div className="Form-group">
+                        {Button.component({
+                            className: 'Button Button--primary',
+                            type: 'button',
+                            children: app.translator.trans('flarum-ext-code-insert.forum.insert'),
+                            onclick: this.click.bind(this)
+                        })}
+                    </div>
                 </div>
             </div>
         );
     }
 
-    change(value) {
-        this.currentMode = value;
-        if (ace.require("ace/mode/" + value) == undefined) {
-            $.getScript("//cdn.jsdelivr.net/gh/ajaxorg/ace-builds/src-min-noconflict/mode-" + value + ".js", () => {
-                editor.session.setMode(new ace.require("ace/mode/" + value).Mode());
-            });
-        } else {
-            editor.session.setMode(new ace.require("ace/mode/" + value).Mode());
-        }
-    }
-
     click() {
-        console.log(this);
+        const code = $('#irony-code-editor').val();
+        if (code.length > 0) {
+            this.props.textAreaObj.insertAtCursor('```\n' + code + '\n```');
+        }
+        this.hide();
     }
 }
